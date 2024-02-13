@@ -58,11 +58,17 @@ class WC_wciowgcssp {
      */
     public static function get_settings() {
 
+        if (defined('WP_DEBUG') && WP_DEBUG) {
+            $debugMessage = "<p style=\"color:red;\">WARNING: WP_DEBUG activated. Log files will contain sensitive data. Please set WP_DEBUG to false when done with debugging.</p>";
+        } else {
+            $debugMessage = "";
+        }
+
         $settings = array(
             'section_title' => array(
                 'name'     => __( 'WooPOS settings', 'woocommerce-settings-tab-demo' ),
                 'type'     => 'title',
-                'desc'     => '',
+                'desc'     => ''.$debugMessage.'',
                 'id'       => 'woopos_section_title'
             ),
             'woopos_pos' => array(
@@ -86,12 +92,12 @@ class WC_wciowgcssp {
                 'desc' => __( 'If your choosen POS requires extra fields, you will need to fill this out here. Example: POS_kunde_demo', 'woocommerce-settings-tab-demo' ),
                 'id'   => 'woopos_extrafield1'
             ),
-            'woopos_woopos_api' => array(
+            'woopos_api' => array(
                 'name' => __( 'Api key from WooPOS', 'woocommerce-settings-tab-demo' ),
                 'type' => 'text',
                 'value' => base64_encode($_SERVER['HTTP_HOST']),
                 'desc' => __( 'You will get this from WooPOS.dk', 'woocommerce-settings-tab-demo' ),
-                'id'   => 'woopos_woopos_api'
+                'id'   => 'woopos_api'
             ),
             'woopos_woopos_pagelength' => array(
                 'name' => __( 'Page length', 'woocommerce-settings-tab-demo' ),
